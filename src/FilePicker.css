@@ -1,0 +1,39 @@
+.file-box
+{
+    border: 3px solid black;
+}
+
+.file-box-header
+{
+    height: 30px;
+    background-color: #000000;
+    color: #fefefe;
+}
+
+.file-box-header-title
+{
+    vertical-align: sub;
+    margin-left: 10px;
+}
+
+.file-box-header-button
+{
+    font-size: 12pt;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.file-box-body
+{
+    background-color:#fefefe;
+}
+
+.file-file
+{
+    visibility: hidden;
+}
+
+.file-image
+{
+    margin:3px;
+}
