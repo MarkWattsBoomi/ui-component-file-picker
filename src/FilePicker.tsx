@@ -61,21 +61,28 @@ class FilePicker extends React.Component<any, any>
         const flowState = manywho.state.getComponent(this.componentId,   this.flowKey);
 
         var filePick : any;
-        var caption : string = "Image Viewer";
+        var caption : string = this.getAttribute("Title");
+        var width = flowModel.width + "px";
+        var height=flowModel.height + "px";
+
+        var style : any = {};
+        style.width = width;
+        style.height = height;
 
         if(flowModel.isEditable)
         {
             filePick = this.pickFile.bind(this);
-            var caption : string = "Image Viewer - click the area below to choose a file";
+            caption = caption + " - click the area below to choose a file";
+            var clearButton = <span className="glyphicon glyphicon-remove file-box-header-button" onClick={this.clearFile.bind(this)}></span>;
         }
 
-        return <div className="file-box">
+        return <div className="file-box" style={style} >
                     <div className="file-box-header">
                         <div style={{float:'left'}}>
                             <span className="file-box-header-title">{caption}</span>
                         </div>
                         <div style={{float:'right'}}>
-                            <span className="glyphicon glyphicon-remove file-box-header-button" onClick={this.clearFile.bind(this)}></span>
+                            {clearButton}
                         </div>
                         
                     </div>
