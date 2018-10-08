@@ -1,59 +1,37 @@
-A small `webpack` based boilerplate for creating custom Boomi Flow UI components.
+# File Picker
+
+A component that can either let a user select a file (or take a photo on a device) or display an image.
+
 
 ## Setup
 
-- Download or clone this repo
-- `npm install`
+- Grab the files from the /dist folder and import into your tenant.
 
-## Included Components
+- Add the files to your player code like this: -
 
-This boilerplate includes examples components for:
+        requires: ['core', 'bootstrap3'],
+        customResources: [
+                'https://s3.amazonaws.com/files-manywho-com/tenant-id/FilePicker.css',
+                'https://s3.amazonaws.com/files-manywho-com/tenant-id/FilePicker.js'
+                ],
 
-- Basic rendering `basic.tsx`
-- Input `input.tsx`
 
-## Writing a Custom Component
+- Add a component to your page, any type, save it then change it's "componentType" to "FilePicker" in the metadata editor and save it.
+e.g. 
+            "componentType": "FilePicker",
 
-Create the custom component in a new `.tsx` file, then re-export them in `index.tsx` e.g. `export * from './component';`. Any custom styles can be added in a separate `.css` file which is imported into the `.tsx` file.
+- Add a String value to hold your flow's current progress e.g. "ImageFile".
 
-## Testing
+- Set the component's "State" to a the new field (e.g. ImageFile). 
 
-You can start the local development server with `npm run dev`. This will serve the compiled javascript and css at `http://localhost:8080/custom-component.js` and `http://localhost:8080/custom-component.css`.
+- Set the "Editable" to "true" to enable file selection or "false" to make it a display only image box.
 
-The easiest way to test a custom component would be to create a custom player then add references to the `custom-components.js` and `custom-components.css` as custom resources, more information on loading custom resources can be found here: https://docs.manywho.com/adding-custom-javascript-and-stylesheets/
+-Set the "width" & "height" of the component to control it's proportions.
 
-The local development server won't be accessible from `flow.manywho.com`, you can workaround this by using a tunnel like https://ngrok.com/download
 
-Run ngrok with: 
+## Extra Configuration
 
-```
-ngrok http 8080 -host-header="localhost:8080"
-```
+You can add attributes to the component to control it's appearance: -
 
-If that fails then try:
+- Title  - String - A string to display in the title bar of the component.
 
-```
-ngrok http --host-header=rewrite 8080
-```
-
-ngrok will provide a url like `https://ad7c2b13.ngrok.io` that will point to `http://localhost:8080`, for example you would add the following as custom resources in a player:
-
-```
-https://ad7c2b13.ngrok.io/custom-components.js,
-https://ad7c2b13.ngrok.io/custom-components.css
-```
-
-After making changes to your custom component you can refresh the browser running the flow for the changes to be picked up.
-
-## Deploying
-
-Run the `npm run build` command to create a production build of `custom-components.js` and `custom-components.css`. You can then host these two files either by using the built in Assets support (more information can be found here: https://docs.manywho.com/everything-you-want-to-know-about-assets/) or a 3rd party file hosting environment.
-
-After the `.js` and `.css` files are available from a file host you can reference them in a custom player as custom resources.
-
-## Configuration
-
-You can change the generated filenames from `custom-components.js` and `custom-components.css` by editing the `webpack.config.js` file:
-
-- line 6 for `custom-components.js`
-- line 36 for `custom-components.css`
