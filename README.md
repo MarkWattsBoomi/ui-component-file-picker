@@ -1,8 +1,13 @@
 # File Picker
 
 A suite of components which: -
-- FilePicker            Let a user select an image file (or take a photo on a device) or display an image.
+
+- FilePicker            Let a user select an image file (or take a photo on a device) or display an image.  The image will be reduced down to 200px width.
 - TextFilePicker        Let a user select a text/binary file.
+
+The resulting selcted file will be stored into a String value in Flow in a base64 format.
+
+
 
 
 ## Setup
