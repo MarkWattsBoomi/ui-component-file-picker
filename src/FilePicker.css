@@ -15,6 +15,16 @@
     position: absolute;
 }
 
+.text-file-box-header
+{
+    width: 100%;
+    height: 33%;
+    line-height: 33%;
+    background-color: #000000;
+    color: #fefefe;
+    position: absolute;
+}
+
 .file-box-header-left
 {
     float: left;
@@ -57,6 +67,15 @@
     top: 15%;
 }
 
+.text-file-box-body
+{
+    background-color:#fefefe;
+    height:67%;
+    position: absolute;
+    width: 100%;
+    top: 33%;
+}
+
 .file-file
 {
     visibility: hidden;
@@ -67,4 +86,12 @@
     margin:0px;
     width: 100%;
     height: 100%;
+}
+
+.file-name
+{
+    margin:0px;
+    width: 100%;
+    height: 100%;
+    font-size: 2vh;
 }

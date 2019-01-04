@@ -1,6 +1,8 @@
 # File Picker
 
-A component that can either let a user select a file (or take a photo on a device) or display an image.
+A suite of components which: -
+- FilePicker            Let a user select an image file (or take a photo on a device) or display an image.
+- TextFilePicker        Let a user select a text/binary file.
 
 
 ## Setup
@@ -19,10 +21,12 @@ A component that can either let a user select a file (or take a photo on a devic
 - Add a component to your page, any type, save it then change it's "componentType" to "FilePicker" in the metadata editor and save it.
 e.g. 
             "componentType": "FilePicker",
+            or
+            "componentType": "TextFilePicker",
 
-- Add a String value to hold your flow's current progress e.g. "ImageFile".
+- Add a String value to hold your flow's current progress e.g. "FileData".
 
-- Set the component's "State" to a the new field (e.g. ImageFile). 
+- Set the component's "State" to a the new field (e.g. FileData). 
 
 - Set the "Editable" to "true" to enable file selection or "false" to make it a display only image box.
 
