@@ -7,10 +7,9 @@ import { IManywho } from '/Operational Data/Flow UI Custom Components/2019 Versi
 declare const manywho: IManywho;
 
 class TextFilePicker extends FlowComponent {
-    selectedItem: string = null;
 
-    text: string = '';
     fileInput: any;
+    selectedItem: string;
 
     constructor(props: any) {
         super(props);
@@ -43,51 +42,44 @@ class TextFilePicker extends FlowComponent {
             clearButton = (<span className="glyphicon glyphicon-remove file-box-header-button" onClick={this.clearFile}></span>);
         }
 
-        return <div className="file-box" style={style} >
-                    <div className="file-box-header">
-                        <div className="file-box-header-left">
-                            <span className="file-box-header-title">{caption}</span>
-                        </div>
-                        <div className="file-box-header-right">
-                            {clearButton}
-                        </div>
+        return (
+            <div className="file-box" style={style} >
+                <div className="file-box-header">
+                    <div className="file-box-header-left">
+                        <span className="file-box-header-title">{caption}</span>
+                    </div>
+                    <div className="file-box-header-right">
+                        {clearButton}
+                    </div>
 
-                    </div>
-                    <div className="file-box-body" onClick={filePick}>
-                        <img ref="img" className="file-image" src={this.getStateValue() as string}></img>
-                        <input ref={(e: any) => {this.fileInput = e; }} type="file" className="file-file" onChange={this.fileSelected}></input>
-                    </div>
-               </div>;
+                </div>
+                <div className="file-box-body" onClick={filePick}>
+                    <span>{this.selectedItem}</span>
+                    <input ref={(e: any) => {this.fileInput = e; }} type="file" className="file-file" onChange={this.fileSelected}/>
+                </div>
+            </div>
+        );
     }
 
     clearFile() {
-        let file: any;
-        file = this.fileInput;
+        // implement one day
     }
 
     pickFile() {
-        let file: any;
-        file = this.fileInput;
-        file.click();
+        this.fileInput.click();
     }
 
     fileSelected() {
-        let file: any;
-        file = this.refs.file;
 
-        if (file.files && file.files.length > 0) {
-            const flowModel = manywho.model.getComponent(this.componentId,   this.flowKey);
-            const flowState = manywho.state.getComponent(this.componentId,   this.flowKey);
-            const aa = this;
-
+        if (this.fileInput.files && this.fileInput.files.length > 0) {
             const reader = new FileReader();
-            reader.onload = function(e: any) {
+            reader.onload = (e: any) => {
                 const fileData = btoa(e.target.result);
-                flowState.contentValue = fileData;
+                this.setStateValue(fileData);
             };
-            this.selectedItem = file.files[0].name;
+            this.selectedItem = this.fileInput.files[0].name;
             this.forceUpdate();
-            reader.readAsBinaryString(file.files[0]);
+            reader.readAsBinaryString(this.fileInput.files[0]);
 
         }
     }
@@ -97,4 +89,3 @@ class TextFilePicker extends FlowComponent {
 manywho.component.register('TextFilePicker', TextFilePicker);
 
 export default TextFilePicker;
-

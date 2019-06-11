@@ -18,6 +18,7 @@ class FilePicker extends FlowComponent {
         this.ResizeBase64Img = this.ResizeBase64Img.bind(this);
         this.clearFile = this.clearFile.bind(this);
         this.pickFile = this.pickFile.bind(this);
+        this.getStateImage = this.getStateImage.bind(this);
 
     }
 
@@ -29,8 +30,8 @@ class FilePicker extends FlowComponent {
 
         let filePick: any;
         const caption: string = this.getAttribute('title') || 'Select File';
-        const width = this.model.width + 'px';
-        const height = this.model.height + 'px';
+        const width = (this.model.width > 99 ? this.model.width : 100) + 'px';
+        const height = (this.model.height > 99 ? this.model.height : 100)  + 'px';
 
         const style: any = {};
         style.width = width;
@@ -40,10 +41,11 @@ class FilePicker extends FlowComponent {
 
         if (this.model.readOnly === false) {
             filePick = this.pickFile;
-            clearButton = (<span className="glyphicon glyphicon-remove file-box-header-button" onClick={this.clearFile}></span>);
+            clearButton = (<span className="glyphicon glyphicon-remove file-box-header-button" onClick={this.clearFile}/>);
         }
 
-        return <div className="file-box" style={style} >
+        return (
+                <div className="file-box" style={style} >
                     <div className="file-box-header">
                         <div className="file-box-header-left">
                             <span className="file-box-header-title">{caption}</span>
@@ -54,36 +56,39 @@ class FilePicker extends FlowComponent {
 
                     </div>
                     <div className="file-box-body" onClick={filePick}>
-                        <img ref="img" className="file-image" src={this.getStateValue() as string}></img>
-                        <input ref={(e: any) => {this.fileInput = e; }} type="file" className="file-file" onChange={this.fileSelected}></input>
+                        <img ref="img" className="file-image" src={this.getStateImage()}/>
+                        <input
+                            ref={(ele: any) => {this.fileInput = ele; }}
+                            type="file"
+                            className="file-file"
+                            onChange={this.fileSelected}
+                        />
                     </div>
-               </div>;
+               </div>
+        );
+    }
+
+    getStateImage(): string {
+        return this.getStateValue() as string;
     }
 
     clearFile() {
-        let file: any;
-        file = this.fileInput;
+        this.forceUpdate();
     }
 
     pickFile() {
-        let file: any;
-        file = this.fileInput;
-        file.click();
+        this.fileInput.click();
     }
 
     fileSelected() {
-        let file: any;
-        file = this.fileInput;
-
-        if (file.files && file.files.length > 0) {
-            const me = this;
-
+        if (this.fileInput.files && this.fileInput.files.length > 0) {
             const reader = new FileReader();
-            reader.onload = function(e: any) {
-                const resized = me.ResizeBase64Img(e.target.result, 400);
+            reader.onload = (e: any) => {
+                this.ResizeBase64Img(e.target.result, 400);
+                reader.onload = null;
             };
 
-            reader.readAsDataURL(file.files[0]);
+            reader.readAsDataURL(this.fileInput.files[0]);
 
         }
     }
@@ -91,8 +96,8 @@ class FilePicker extends FlowComponent {
     ResizeBase64Img(base64: string, width: number) {
 
         const img = new Image();
-        const me  = this;
-        img.onload = function() {
+
+        img.onload = () => {
 
             const aspectRatio = img.height / img.width;
             const canvas = document.createElement('canvas');
@@ -108,10 +113,10 @@ class FilePicker extends FlowComponent {
             context.drawImage(img, 0 , 0);
             const resized = canvas.toDataURL();
 
-            me.setStateValue(resized);
+            this.setStateValue(resized);
             img.src = resized;
             img.onload = null;
-            me.forceUpdate();
+            this.forceUpdate();
         };
         img.src = base64;
     }
