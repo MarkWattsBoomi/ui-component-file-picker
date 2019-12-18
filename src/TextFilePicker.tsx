@@ -1,10 +1,8 @@
 
+import {FlowComponent} from 'flow-component-model';
 import * as React from 'react';
 import './css/FilePicker.css';
-import { FlowComponent } from '/Operational Data/Flow UI Custom Components/2019 Version/FlowComponentModel/src/FlowComponent';
-import { IManywho } from '/Operational Data/Flow UI Custom Components/2019 Version/FlowComponentModel/src/interfaces';
-
-declare const manywho: IManywho;
+declare const manywho: any;
 
 class TextFilePicker extends FlowComponent {
 
@@ -39,7 +37,7 @@ class TextFilePicker extends FlowComponent {
 
         if (this.model.readOnly === false) {
             filePick = this.pickFile;
-            clearButton = (<span className="glyphicon glyphicon-remove file-box-header-button" onClick={this.clearFile}></span>);
+            clearButton = (<span className="glyphicon glyphicon-remove file-box-header-button" onClick={this.clearFile}/>);
         }
 
         return (

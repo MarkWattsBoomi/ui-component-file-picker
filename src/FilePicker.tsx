@@ -1,9 +1,9 @@
 import * as React from 'react';
 import './css/FilePicker.css';
-import { FlowComponent } from '/Operational Data/Flow UI Custom Components/2019 Version/FlowComponentModel/src/FlowComponent';
-import { IManywho } from '/Operational Data/Flow UI Custom Components/2019 Version/FlowComponentModel/src/interfaces';
 
-declare const manywho: IManywho;
+import {FlowComponent} from 'flow-component-model';
+
+declare const manywho: any;
 
 class FilePicker extends FlowComponent {
     selectedItem: string = null;
